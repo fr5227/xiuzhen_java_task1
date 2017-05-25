@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='com.xiuzhen.enrollment.dal.enrolldata.EnrollDataMapper'>
+
+    <resultMap type="com.xiuzhen.enrollment.po.enrolldata.EnrollData" id="EnrollDataResult">
+        <id property="enroll_id" column="enroll_id"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="qq" column="qq"/>
+        <result property="school" column="school"/>
+        <result property="tutor" column="tutor"/>
+        <result property="online_id" column="online_id"/>
+        <result property="study_note_link" column="study_note_link"/>
+        <result property="expected_start_date" column="expected_start_date"/>
+        <result property="study_aoth" column="study_aoth"/>
+        <result property="heard_us_from" column="heard_us_from"/>
+        <result property="class_name" column="class_name"/>
+    </resultMap>
+    
+    <select id='selectById' parameterType='int' resultMap="EnrollDataResult">
+        select * from enroll where id=#{enroll_id}
+    </select>
+
+    <select id='selectByOnlineId' parameterType='string' resultMap="EnrollDataResult">
+        select * from enroll where online_id=#{online_id}
+    </select>
+    
+    <select id='selectByRealname' parameterType='string' resultMap="EnrollDataResult">
+        select * from enroll where realname=#{realname}
+    </select>
+    
+    <select id='selectByClassName' parameterType='string' resultMap="EnrollDataResult">
+        select * from enroll where class_name=#{class_name}
+    </select>
+    
+    <select id='selectAll' resultMap="EnrollDataResult">
+        select * from enroll;
+    </select>
+    
+    <insert id='insert' parameterType='com.xiuzhen.enrollment.po.enrolldata.EnrollData'>
+        insert into enroll (created_at, updated_at, realname, qq, school, 
+        tutor, online_id, study_note_link, study_aoth, 
+        expected_start_date, heard_us_from, class_name)
+        values  
+        (#{created_at}, #{updated_at}, #{realname}, #{qq}, #{school}, 
+        #{tutor}, #{online_id}, #{study_note_link}, #{study_aoth}, 
+        #{expected_start_date}, #{heard_us_from}, #{class_name})
+    </insert>
+    
+    <update id="update" parameterType="com.xiuzhen.enrollment.po.enrolldata.EnrollData">
+        update enroll set
+         created_at=#{created_at}, 
+         updated_at=#{updated_at}, 
+         realname=#{realname}, 
+         qq=#{qq}, 
+         school=#{school}, 
+         tutor=#{tutor}, 
+         online_id=#{online_id}, 
+         study_note_link=#{study_note_link}, 
+         study_aoth=#{study_aoth}, 
+         expected_start_date=#{expected_start_date}, 
+         heard_us_from=#{heard_us_from}
+         class_name=#{class_name}
+         where id=#{enroll_id}
+    </update>
+    
+    <delete id="delete" parameterType="com.xiuzhen.enrollment.po.enrolldata.EnrollData">
+        delete from enroll where id=#{enroll_id}
+    </delete>
+
+</mapper>
